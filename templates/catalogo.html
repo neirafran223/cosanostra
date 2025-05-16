@@ -7,49 +7,49 @@
     <link rel="stylesheet" href="../static/catalogo.css">
 </head>
 <body>
+    <!-- Nav consistente -->
     <header>
         <nav>
             <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Catálogo</a></li>
-                <li><a href="#">Contacto</a></li>
-                <li><a href="#">Carrito</a></li>
-                <li><a href="agregar-arma.html">Agregar Arma</a></li> <!-- Nuevo enlace para agregar arma -->
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="acerca.html">Acerca de</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html">Carrito</a></li>
+                <li><a href="agregar-arma.html">Agregar Arma</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Barra de búsqueda y filtros -->
         <section class="filtros">
             <input type="text" id="buscador" placeholder="Buscar arma..." oninput="filtrar()">
 
             <select id="categoria" onchange="filtrar()">
-                <option value="">Seleccionar Categoría</option>
+                <option value="">Todas las categorías</option>
                 <option value="rifle">Rifle</option>
                 <option value="pistola">Pistola</option>
                 <option value="escopeta">Escopeta</option>
             </select>
 
             <select id="tipo" onchange="filtrar()">
-                <option value="">Seleccionar Tipo</option>
+                <option value="">Todos los tipos</option>
                 <option value="automatica">Automática</option>
                 <option value="semi-automatica">Semi-automática</option>
                 <option value="manual">Manual</option>
             </select>
         </section>
 
-        <!-- Catálogo de productos -->
         <section class="catalogo">
             <h1>Catálogo de Armas</h1>
             <div class="productos" id="productos">
-                <!-- Productos se insertarán aquí por JavaScript -->
+                <!-- Productos se cargarán dinámicamente -->
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Catálogo de Armas</p>
+        <p>&copy; 2025 Catálogo de Armas. Todos los derechos reservados.</p>
     </footer>
 
     <script src="../static/catalogo.js"></script>

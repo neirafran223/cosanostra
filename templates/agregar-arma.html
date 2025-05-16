@@ -7,34 +7,57 @@
     <link rel="stylesheet" href="../static/agregar.css">
 </head>
 <body>
+    <!-- Nav consistente -->
     <header>
         <nav>
             <ul>
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="agregar-arma.html">Agregar Arma</a></li>
-                <li><a href="#">Contacto</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Formulario para agregar arma -->
         <section class="formulario-agregar">
             <h1>Agregar Nueva Arma</h1>
             <form id="form-agregar-arma">
-                <input type="text" id="nombre" placeholder="Nombre del arma" required>
-                <input type="text" id="descripcion" placeholder="Descripción" required>
-                <input type="number" id="precio" placeholder="Precio" required>
-                <input type="text" id="categoria" placeholder="Categoría (ej. Rifle, Pistola)" required>
-                <input type="text" id="tipo" placeholder="Tipo (ej. Automática, Manual)" required>
-                <input type="url" id="imagen" placeholder="URL de la imagen" required>
-                <button type="submit">Agregar Arma</button>
+                <div class="form-group">
+                    <input type="text" id="nombre" placeholder="Nombre del arma" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="descripcion" placeholder="Descripción" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="precio" placeholder="Precio" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <select id="categoria" required>
+                        <option value="">Seleccione categoría</option>
+                        <option value="rifle">Rifle</option>
+                        <option value="pistola">Pistola</option>
+                        <option value="escopeta">Escopeta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="tipo" required>
+                        <option value="">Seleccione tipo</option>
+                        <option value="automatica">Automática</option>
+                        <option value="semi-automatica">Semi-automática</option>
+                        <option value="manual">Manual</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="url" id="imagen" placeholder="URL de la imagen" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Arma</button>
             </form>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Catálogo de Armas</p>
+        <p>&copy; 2025 Catálogo de Armas. Todos los derechos reservados.</p>
     </footer>
 
     <script src="../static/agregar.js"></script>

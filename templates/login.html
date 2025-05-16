@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../static/login.css"> <!-- Asegúrate de tener este archivo CSS -->
+    <link rel="stylesheet" href="../static/login.css"> 
 </head>
 <body>
-    <div class="nav">
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Catalogo</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
-    </div>
+    <!-- Nav consistente -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="acerca.html">Acerca de</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <div class="login-container">
         <div class="form-box">
             <h2>Iniciar sesión</h2>
-            <form action="" class="login" id="login">
-                <input type="email" placeholder="Correo electronico" required>
+            <form action="#" class="login-form" id="login">
+                <input type="email" placeholder="Correo electrónico" required>
                 <input type="password" placeholder="Contraseña" required>
-                <a href="catalogo.html"><button type="submit">INICIAR SESIÓN</button></a>
-                <a href="register.html">¿No tienes cuenta?</a>
+                <button type="submit" class="btn">INICIAR SESIÓN</button>
+                <p class="form-footer">¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
             </form>
         </div>
     </div>
