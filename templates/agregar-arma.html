@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Arma</title>
+    <link rel="stylesheet" href="../static/agregar.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="agregar-arma.html">Agregar Arma</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Formulario para agregar arma -->
+        <section class="formulario-agregar">
+            <h1>Agregar Nueva Arma</h1>
+            <form id="form-agregar-arma">
+                <input type="text" id="nombre" placeholder="Nombre del arma" required>
+                <input type="text" id="descripcion" placeholder="Descripción" required>
+                <input type="number" id="precio" placeholder="Precio" required>
+                <input type="text" id="categoria" placeholder="Categoría (ej. Rifle, Pistola)" required>
+                <input type="text" id="tipo" placeholder="Tipo (ej. Automática, Manual)" required>
+                <input type="url" id="imagen" placeholder="URL de la imagen" required>
+                <button type="submit">Agregar Arma</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Catálogo de Armas</p>
+    </footer>
+
+    <script src="../static/agregar.js"></script>
+</body>
+</html>

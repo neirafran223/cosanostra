@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Armas</title>
+    <link rel="stylesheet" href="../static/catalogo.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Catálogo</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="#">Carrito</a></li>
+                <li><a href="agregar-arma.html">Agregar Arma</a></li> <!-- Nuevo enlace para agregar arma -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Barra de búsqueda y filtros -->
+        <section class="filtros">
+            <input type="text" id="buscador" placeholder="Buscar arma..." oninput="filtrar()">
+
+            <select id="categoria" onchange="filtrar()">
+                <option value="">Seleccionar Categoría</option>
+                <option value="rifle">Rifle</option>
+                <option value="pistola">Pistola</option>
+                <option value="escopeta">Escopeta</option>
+            </select>
+
+            <select id="tipo" onchange="filtrar()">
+                <option value="">Seleccionar Tipo</option>
+                <option value="automatica">Automática</option>
+                <option value="semi-automatica">Semi-automática</option>
+                <option value="manual">Manual</option>
+            </select>
+        </section>
+
+        <!-- Catálogo de productos -->
+        <section class="catalogo">
+            <h1>Catálogo de Armas</h1>
+            <div class="productos" id="productos">
+                <!-- Productos se insertarán aquí por JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Catálogo de Armas</p>
+    </footer>
+
+    <script src="../static/catalogo.js"></script>
+</body>
+</html>
