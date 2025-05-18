@@ -1,65 +1,188 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Arma</title>
-    <link rel="stylesheet" href="../static/agregar.css">
-</head>
-<body>
-    <!-- Nav consistente -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="agregar-arma.html">Agregar Arma</a></li>
-            </ul>
-        </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agregar Arma | Administración</title>
+    <meta
+      name="description"
+      content="Formulario para agregar nuevas armas al catálogo"
+    />
+    <link rel="stylesheet" href="../static/agregar.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a href="catalogo.html" class="nav-link">Catálogo</a>
+          </li>
+          <li class="nav-item">
+            <a href="contacto.html" class="nav-link">Contacto</a>
+          </li>
+          <li class="nav-item">
+            <a href="agregar-arma.html" class="nav-link active">Agregar Arma</a>
+          </li>
+        </ul>
+      </nav>
     </header>
 
-    <main>
-        <section class="formulario-agregar">
-            <h1>Agregar Nueva Arma</h1>
-            <form id="form-agregar-arma">
-                <div class="form-group">
-                    <input type="text" id="nombre" placeholder="Nombre del arma" required>
-                </div>
-                <div class="form-group">
-                    <textarea id="descripcion" placeholder="Descripción" required></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="number" id="precio" placeholder="Precio" min="0" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <select id="categoria" required>
-                        <option value="">Seleccione categoría</option>
-                        <option value="rifle">Rifle</option>
-                        <option value="pistola">Pistola</option>
-                        <option value="escopeta">Escopeta</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select id="tipo" required>
-                        <option value="">Seleccione tipo</option>
-                        <option value="automatica">Automática</option>
-                        <option value="semi-automatica">Semi-automática</option>
-                        <option value="manual">Manual</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="url" id="imagen" placeholder="URL de la imagen" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Agregar Arma</button>
-            </form>
-        </section>
+    <main class="main-content">
+      <section class="admin-section" aria-labelledby="admin-heading">
+        <h1 id="admin-heading" class="main-title">Agregar Nueva Arma</h1>
+
+        <form
+          id="form-agregar-arma"
+          class="admin-form"
+          action="/api/armas"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre" class="form-label">Nombre del arma *</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                class="form-input"
+                required
+                minlength="3"
+                maxlength="100"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="modelo" class="form-label">Modelo *</label>
+              <input
+                type="text"
+                id="modelo"
+                name="modelo"
+                class="form-input"
+                required
+                minlength="2"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion" class="form-label">Descripción *</label>
+            <textarea
+              id="descripcion"
+              name="descripcion"
+              class="form-textarea"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="precio" class="form-label">Precio (USD) *</label>
+              <input
+                type="number"
+                id="precio"
+                name="precio"
+                class="form-input"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="stock" class="form-label">Stock disponible *</label>
+              <input
+                type="number"
+                id="stock"
+                name="stock"
+                class="form-input"
+                min="0"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="categoria" class="form-label">Categoría *</label>
+              <select
+                id="categoria"
+                name="categoria"
+                class="form-select"
+                required
+              >
+                <option value="">Seleccione categoría</option>
+                <option value="rifle">Rifle</option>
+                <option value="pistola">Pistola</option>
+                <option value="escopeta">Escopeta</option>
+                <option value="subfusil">Subfusil</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="tipo" class="form-label">Tipo *</label>
+              <select id="tipo" name="tipo" class="form-select" required>
+                <option value="">Seleccione tipo</option>
+                <option value="automatica">Automática</option>
+                <option value="semi-automatica">Semi-automática</option>
+                <option value="manual">Manual</option>
+                <option value="revolver">Revolver</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="imagen" class="form-label">Imagen del producto *</label>
+            <input
+              type="file"
+              id="imagen"
+              name="imagen"
+              class="form-file"
+              accept="image/*"
+              required
+            />
+            <p class="form-hint">
+              Formatos aceptados: JPG, PNG. Tamaño máximo: 5MB
+            </p>
+          </div>
+
+          <div class="form-group form-checkbox">
+            <input
+              type="checkbox"
+              id="confirmacion"
+              name="confirmacion"
+              required
+            />
+            <label for="confirmacion"
+              >Confirmo que esta información cumple con todas las regulaciones
+              locales</label
+            >
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Agregar Arma</button>
+            <button type="reset" class="btn btn-secondary">
+              Limpiar Formulario
+            </button>
+          </div>
+        </form>
+      </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Catálogo de Armas. Todos los derechos reservados.</p>
+    <footer class="footer">
+      <p class="footer-text">
+        &copy; 2025 Catálogo de Armas. Todos los derechos reservados.
+      </p>
+      <p class="footer-disclaimer">
+        Solo para uso de personal autorizado. Todas las transacciones son
+        monitoreadas.
+      </p>
     </footer>
 
-    <script src="../static/agregar.js"></script>
-</body>
+    <script src="../static/js/agregar.js" defer></script>
+  </body>
 </html>

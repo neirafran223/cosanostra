@@ -1,92 +1,282 @@
-/* Reset CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Variables específicas para agregar */
+:root {
+  --form-bg: #333;
+  --input-bg: #444;
+  --primary-color: #023590;
+  --hover-color: #2456c4;
+  --text-light: #e0e0e0;
+  --text-medium: #a0a0a0; /* Añadida esta variable */
+  --nav-bg: #222;
+  --footer-bg: #121212;
+  --transition: all 0.3s ease;
 }
 
+/* Estructura base */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #4d4d4d; /* Fondo oscuro */
-    color: #fff; /* Texto blanco */
+  font-family: "Arial", sans-serif;
+  background-color: #4d4d4d;
+  color: #fff;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-header {
-    background-color: #222; /* Fondo oscuro para la cabecera */
-    padding: 10px 0;
+/* Header y Navegación */
+.header {
+  background-color: var(--nav-bg);
+  padding: 1rem 0;
 }
 
-header nav ul {
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
+.nav-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
 }
 
-header nav ul li {
-    margin: 0 15px;
+.nav-item {
+  margin: 0 1rem;
 }
 
-header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: var(--transition);
 }
 
-header nav ul li a:hover {
-    color: #ff9800; /* Color naranja al pasar el mouse */
+.nav-link:hover,
+.nav-link.active {
+  background-color: var(--primary-color);
 }
 
-main {
-    padding: 20px;
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  padding: 2rem 1rem;
+  width: 100%;
 }
 
-.formulario-agregar {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #333; /* Fondo blanco */
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.admin-section {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.formulario-agregar h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #023590; /* Azul oscuro para el título */
+.main-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #fff;
+  position: relative;
 }
 
-.formulario-agregar input {
+.main-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: var(--primary-color);
+  margin: 0.75rem auto 0;
+  border-radius: 3px;
+}
+
+/* Formulario */
+.admin-form {
+  background-color: var(--form-bg);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+}
+
+.admin-form:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Grupos de formulario */
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea,
+.form-file {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: var(--input-bg);
+  color: #fff;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(2, 53, 144, 0.3);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-file {
+  padding: 0.5rem;
+  background-color: transparent;
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--text-medium);
+  margin-top: 0.25rem;
+}
+
+/* Checkbox */
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.form-checkbox input {
+  margin-right: 0.75rem;
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.form-checkbox label {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+/* Botones */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+  flex: 1;
+}
+
+.btn-primary:hover {
+  background-color: var(--hover-color);
+}
+
+.btn-secondary {
+  background-color: #555;
+  color: #fff;
+  flex: 1;
+}
+
+.btn-secondary:hover {
+  background-color: #666;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--footer-bg);
+  color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.footer-text {
+  margin-bottom: 0.5rem;
+}
+
+.footer-disclaimer {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries para móvil */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .admin-form {
+    padding: 1.5rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-item {
+    margin: 0.25rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    background-color: #333; /* Fondo oscuro para los campos de texto */
-    color: #fff; /* Texto blanco */
-}
+  }
 
-.formulario-agregar button {
-    background-color: #023590; /* Botón azul oscuro */
-    color: #fff; /* Texto blanco */
-    padding: 12px 20px;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.formulario-agregar button:hover {
-    background-color: #2456c4; /* Hover en azul más claro */
-}
-
-footer {
-    background-color: #222; /* Fondo oscuro para el pie de página */
-    color: #fff; /* Texto blanco */
-    padding: 10px;
-    text-align: center;
-    margin-top: 50px;
+  .main-content {
+    padding: 1rem;
+  }
 }

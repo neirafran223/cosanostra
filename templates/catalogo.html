@@ -1,57 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Armas</title>
-    <link rel="stylesheet" href="../static/catalogo.css">
-</head>
-<body>
-    <!-- Nav consistente -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="acerca.html">Acerca de</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="carrito.html">Carrito</a></li>
-                <li><a href="agregar-arma.html">Agregar Arma</a></li>
-            </ul>
-        </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Armas | Tienda Especializada</title>
+    <meta name="description" content="Catálogo completo de armas de fuego" />
+    <link rel="stylesheet" href="../static/catalogo.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a href="acerca.html" class="nav-link">Acerca de</a>
+          </li>
+          <li class="nav-item">
+            <a href="catalogo.html" class="nav-link active">Catálogo</a>
+          </li>
+          <li class="nav-item">
+            <a href="contacto.html" class="nav-link">Contacto</a>
+          </li>
+          <li class="nav-item">
+            <a href="carrito.html" class="nav-link">Carrito</a>
+          </li>
+          <li class="nav-item" id="adminLink">
+            <a href="agregar-arma.html" class="nav-link">Agregar Arma</a>
+          </li>
+        </ul>
+      </nav>
     </header>
 
-    <main>
-        <section class="filtros">
-            <input type="text" id="buscador" placeholder="Buscar arma..." oninput="filtrar()">
+    <main class="main-content">
+      <section class="filtros-section" aria-labelledby="filtros-heading">
+        <h2 id="filtros-heading" class="section-title">Filtrar Armas</h2>
+        <div class="filtros">
+          <div class="filtro-group">
+            <label for="buscador" class="filtro-label">Buscar:</label>
+            <input
+              type="text"
+              id="buscador"
+              class="filtro-input"
+              placeholder="Nombre del arma..."
+              aria-label="Buscar armas"
+            />
+          </div>
 
-            <select id="categoria" onchange="filtrar()">
-                <option value="">Todas las categorías</option>
-                <option value="rifle">Rifle</option>
-                <option value="pistola">Pistola</option>
-                <option value="escopeta">Escopeta</option>
+          <div class="filtro-group">
+            <label for="categoria" class="filtro-label">Categoría:</label>
+            <select
+              id="categoria"
+              class="filtro-select"
+              aria-label="Filtrar por categoría"
+            >
+              <option value="">Todas las categorías</option>
+              <option value="rifle">Rifle</option>
+              <option value="pistola">Pistola</option>
+              <option value="escopeta">Escopeta</option>
             </select>
+          </div>
 
-            <select id="tipo" onchange="filtrar()">
-                <option value="">Todos los tipos</option>
-                <option value="automatica">Automática</option>
-                <option value="semi-automatica">Semi-automática</option>
-                <option value="manual">Manual</option>
+          <div class="filtro-group">
+            <label for="tipo" class="filtro-label">Tipo:</label>
+            <select
+              id="tipo"
+              class="filtro-select"
+              aria-label="Filtrar por tipo"
+            >
+              <option value="">Todos los tipos</option>
+              <option value="automatica">Automática</option>
+              <option value="semi-automatica">Semi-automática</option>
+              <option value="manual">Manual</option>
             </select>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <section class="catalogo">
-            <h1>Catálogo de Armas</h1>
-            <div class="productos" id="productos">
-                <!-- Productos se cargarán dinámicamente -->
-            </div>
-        </section>
+      <section class="catalogo-section" aria-labelledby="catalogo-heading">
+        <h1 id="catalogo-heading" class="main-title">Catálogo de Armas</h1>
+        <div class="productos-grid" id="productos">
+          <!-- Los productos se cargarán dinámicamente aquí -->
+        </div>
+      </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Catálogo de Armas. Todos los derechos reservados.</p>
+    <footer class="footer">
+      <div class="footer-content">
+        <p class="footer-text">
+          &copy; 2025 Catálogo de Armas. Todos los derechos reservados.
+        </p>
+        <p class="footer-disclaimer">
+          El contenido de este sitio es solo para mayores de 18 años. Todas las
+          transacciones están sujetas a verificación de antecedentes y
+          cumplimiento de las leyes locales.
+        </p>
+      </div>
     </footer>
 
-    <script src="../static/catalogo.js"></script>
-</body>
+    <script src="../static/js/catalogo.js" defer></script>
+  </body>
 </html>

@@ -1,140 +1,270 @@
-/* Reseteo de márgenes y padding, y tipografía por defecto */
+/* Variables CSS */
+:root {
+  --primary-color: #1e3a8a;
+  --primary-hover: #1e40af;
+  --secondary-color: #ff0b0b;
+  --background-dark: #1c1c1c;
+  --background-medium: #2a2a2a;
+  --background-light: #333;
+  --text-light: #e0e0e0;
+  --text-white: #fff;
+  --border-color: #444;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s ease;
+}
+
+/* Reseteo y tipografía */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* Estructura base */
+body,
+html {
+  height: 100%;
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Caja de formulario */
+.form-box {
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  margin: auto;
+  background-color: var(--background-medium);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transform: translateY(0);
+  transition: var(--transition);
+}
+
+.form-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Títulos */
+.form-title {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-white);
+  text-align: center;
+  position: relative;
+}
+
+.form-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+  margin: 0.5rem auto 0;
+  border-radius: 3px;
+}
+
+/* Grupos de formulario */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+/* Campos de entrada */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--background-light);
+  color: var(--text-white);
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.2);
+}
+
+/* Botones */
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Enlaces */
+.form-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.form-link:hover {
+  color: var(--text-white);
+  text-decoration: underline;
+}
+
+/* Pie de formulario */
+.form-footer {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--text-light);
+}
+
+/* Navegación */
+.header {
+  background-color: #121212;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  margin: 0 0.5rem;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  color: var(--text-white);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  background-color: var(--background-light);
+}
+
+/* Footer */
+.footer {
+  background-color: #121212;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-text {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-disclaimer {
+  color: var(--text-light);
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  /* Fondo del body y la página */
-  body, html {
-    height: 100%;
-    background-color: #1c1c1c; /* Fondo oscuro (gris muy oscuro) */
-    color: #e0e0e0; /* Color de texto en gris claro */
+  to {
+    opacity: 1;
   }
-  
-  /* Contenedor principal de la página de login */
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries para móvil */
+@media (max-width: 768px) {
   .login-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    padding: 1rem;
   }
-  
-  /* Caja de formulario */
+
   .form-box {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 500px; /* Reducción del tamaño máximo */
-    padding: 30px;
-    background-color: #2a2a2a; /* Fondo oscuro para la caja del formulario */
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Sombra sutil */
-    margin: 0 auto;
-    height: auto;
+    padding: 1.5rem;
   }
-  
-  /* Título del formulario */
-  .form-box h2 {
-    font-size: 28px;
-    margin-bottom: 25px;
-    color: #fff; /* Título blanco para contrastar */
+
+  .form-title {
+    font-size: 1.5rem;
   }
-  
-  /* Estilo de los campos de entrada */
-  .form-box input[type="text"],
-  .form-box input[type="email"],
-  .form-box input[type="password"] {
-    width: 100%; /* Asegura que los campos sean del 100% */
-    padding: 12px 16px;
-    margin-bottom: 15px;
-    border: 1px solid #444; /* Bordes más oscuros */
-    border-radius: 8px; /* Bordes redondeados */
-    font-size: 16px;
-    background-color: #333; /* Fondo oscuro para los inputs */
-    color: #fff; /* Texto blanco en los inputs */
+
+  .nav-list {
+    gap: 0.25rem;
   }
-  
-  /* Estilo del botón */
-  .form-box button {
-    width: 100%;
-    padding: 12px;
-    background-color: #1e3a8a; /* Azul oscuro */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.3s ease;
+
+  .nav-item {
+    margin: 0 0.25rem;
   }
-  
-  /* Efecto hover del botón */
-  .form-box button:hover {
-    background-color: #1e40af; /* Azul más brillante */
+
+  .nav-link {
+    padding: 0.5rem;
+    font-size: 0.875rem;
   }
-  
-  /* Estilo de los enlaces debajo del formulario */
-  .form-box a {
-    display: inline-block;
-    margin-top: 15px;
-    text-decoration: none;
-    color: #a5a5a5; /* Gris claro */
-    font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .form-box {
+    padding: 1.25rem;
   }
-  
-  /* Efecto hover del enlace */
-  .form-box a:hover {
-    text-decoration: underline;
-    color: #fff; /* Blanco cuando pasa el mouse */
+
+  .form-title {
+    font-size: 1.25rem;
   }
-  
-  /* Estilo de la barra de navegación */
-  .nav {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: #121212; /* Fondo oscuro para la navegación */
-    padding: 10px 0;
+
+  .form-input {
+    padding: 0.65rem 0.9rem;
   }
-  
-  /* Lista de navegación */
-  .nav ul {
-    display: flex;
-    list-style-type: none;
-    align-items: center;
-    justify-content: center;
+
+  .btn {
+    padding: 0.65rem;
   }
-  
-  /* Elementos de la lista */
-  .nav ul li {
-    margin: 0 15px;
-    padding: 8px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Enlaces de la navegación */
-  .nav ul li a {
-    text-decoration: none;
-    color: #fff; /* Color blanco para los enlaces */
-    font-size: 16px;
-    transition: color 0.4s ease;
-  }
-  
-  /* Efecto hover en los elementos de la lista */
-  .nav ul li:hover {
-    background-color: #333; /* Fondo oscuro cuando pasa el mouse */
-  }
-  
-  /* Efecto hover en los enlaces */
-  .nav ul li a:hover {
-    color: #e0e0e0; /* Color gris claro cuando pasa el mouse */
-  }
-  
+}
