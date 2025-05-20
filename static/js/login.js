@@ -1,102 +1,78 @@
+// static/js/login.js
 document.addEventListener("DOMContentLoaded", async function () {
-  // Configuración de la base de datos
-  const DB_NAME = "ArmasDB";
-  const DB_VERSION = 1;
-  let db;
+  // Asegúrate de incluir el CSS de notificaciones
+  const style = document.createElement('link');
+  style.rel = 'stylesheet';
+  style.href = '../static/css/notification.css';
+  document.head.appendChild(style);
 
-  try {
-    // Abrir la base de datos
-    db = await new Promise((resolve, reject) => {
-      const request = indexedDB.open(DB_NAME, DB_VERSION);
+  const loginForm = document.getElementById("loginForm");
+  if (!loginForm) return;
+
+  loginForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const userType = document.getElementById("userType").value;
+
+    if (!email || !password || !userType) {
+      showNotification("Por favor complete todos los campos", "error");
+      return;
+    }
+
+    try {
+      // Obtener usuarios registrados
+      const users = JSON.parse(localStorage.getItem("users")) || [];
       
-      request.onsuccess = (event) => resolve(event.target.result);
-      request.onerror = (event) => {
-        console.error("Error al abrir la base de datos:", event.target.error);
-        reject(event.target.error);
-      };
-    });
+      // Buscar usuario por email y tipo
+      const user = users.find(u => 
+        u.email === email && 
+        u.userType === userType &&
+        u.activo !== false
+      );
 
-    const loginForm = document.getElementById("loginForm");
-    if (!loginForm) return;
-
-    loginForm.addEventListener("submit", async function (event) {
-      event.preventDefault();
-
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-      const userType = document.getElementById("userType").value;
-
-      // Validaciones básicas
-      if (!email || !password || !userType) {
-        alert("Por favor complete todos los campos.");
+      if (!user) {
+        showNotification("Credenciales incorrectas o usuario no existe", "error");
         return;
       }
 
-      try {
-        // Obtener usuario de IndexedDB
-        const user = await new Promise((resolve, reject) => {
-          const transaction = db.transaction("users", "readonly");
-          const store = transaction.objectStore("users");
-          const index = store.index("email");
-          const request = index.get(email);
+      // Verificar contraseña (comparar hashes)
+      const hashedPassword = await hashPassword(password);
+      if (user.password !== hashedPassword) {
+        showNotification("Credenciales incorrectas", "error");
+        return;
+      }
 
-          request.onsuccess = (e) => resolve(e.target.result);
-          request.onerror = (e) => reject(e.target.error);
-        });
+      // Guardar usuario en sesión (sin la contraseña)
+      sessionStorage.setItem("currentUser", JSON.stringify({
+        id: user.id,
+        nombre: user.nombre,
+        apellido: user.apellido,
+        email: user.email,
+        userType: user.userType
+      }));
 
-        if (!user) {
-          alert("No existe un usuario con este correo.");
-          return;
-        }
+      showNotification(`Bienvenido ${user.nombre}`, "success");
 
-        // Verificar contraseña (comparar hashes)
-        const hashedPassword = await hashPassword(password);
-        if (user.password !== hashedPassword) {
-          alert("Contraseña incorrecta.");
-          return;
-        }
-
-        // Verificar tipo de usuario
-        if (user.userType !== userType) {
-          alert("No tiene permisos para acceder como este tipo de usuario.");
-          return;
-        }
-
-        // Verificar si la cuenta está activa
-        if (user.activo === false) {
-          alert("Esta cuenta está desactivada. Contacte al administrador.");
-          return;
-        }
-
-        // Guardar usuario actual en sesión
-        sessionStorage.setItem("currentUser", JSON.stringify({
-          id: user.id,
-          nombre: user.nombre,
-          email: user.email,
-          userType: user.userType
-        }));
-
-        // Redirigir según el tipo de usuario
+      // Redirigir según el tipo de usuario
+      setTimeout(() => {
         const redirectPage = userType === "admin" ? "agregar-arma.html" : "catalogo.html";
         window.location.href = redirectPage;
+      }, 1500);
 
-      } catch (error) {
-        console.error("Error en el inicio de sesión:", error);
-        alert("Ocurrió un error al iniciar sesión. Intente nuevamente.");
-      }
-    });
-
-    // Función para encriptar contraseñas (SHA-256)
-    async function hashPassword(password) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(password);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    } catch (error) {
+      console.error("Error en el login:", error);
+      showNotification("Ocurrió un error al iniciar sesión", "error");
     }
+  });
 
-  } catch (error) {
-    console.error("Error al inicializar la aplicación:", error);
-    alert("Error al cargar la aplicación. Recargue la página.");
+  // Función para hashear contraseña (debe ser idéntica a la de registro)
+  async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 });
