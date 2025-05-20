@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Verificar y ocultar enlace de admin si no es administrador
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  // Verificar y ocultar enlace de admin
+  const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
   const adminLink = document.getElementById("adminLink");
 
   if (!currentUser || currentUser.userType !== "admin") {
     if (adminLink) adminLink.style.display = "none";
   }
 
-  // Cargar armas del localStorage o usar las predeterminadas
+  // Cargar armas
   let armas = JSON.parse(localStorage.getItem("armas")) || [
     {
       id: Date.now(),
@@ -33,15 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   ];
 
-  // Guardar armas si se usaron las predeterminadas
   if (!localStorage.getItem("armas")) {
     localStorage.setItem("armas", JSON.stringify(armas));
   }
 
-  // Mostrar productos iniciales
   mostrarProductos(armas);
 
-  // Configurar event listeners para los filtros
+  // Configurar filtros
   document.getElementById("buscador").addEventListener("input", filtrar);
   document.getElementById("categoria").addEventListener("change", filtrar);
   document.getElementById("tipo").addEventListener("change", filtrar);
@@ -51,8 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     contenedor.innerHTML = "";
 
     if (productos.length === 0) {
-      contenedor.innerHTML =
-        '<p class="no-resultados">No se encontraron armas con estos filtros.</p>';
+      contenedor.innerHTML = '<p class="no-resultados">No se encontraron armas con estos filtros.</p>';
       return;
     }
 
@@ -60,9 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const div = document.createElement("div");
       div.classList.add("producto");
       div.innerHTML = `
-        <img src="${
-          arma.imagen || "https://via.placeholder.com/300x200"
-        }" alt="${arma.nombre}">
+        <img src="${arma.imagen || "https://via.placeholder.com/300x200"}" alt="${arma.nombre}">
         <div class="producto-info">
           <h2>${arma.nombre}</h2>
           <p>${arma.descripcion}</p>
@@ -71,15 +66,12 @@ document.addEventListener("DOMContentLoaded", function () {
           <p><strong>Tipo:</strong> ${arma.tipo}</p>
           <p><strong>Stock:</strong> ${arma.stock}</p>
           <span class="precio">$${arma.precio.toFixed(2)} USD</span>
-          <button class="btn-add-cart" data-id="${
-            arma.id
-          }">Añadir al carrito</button>
+          <button class="btn-add-cart" data-id="${arma.id}">Añadir al carrito</button>
         </div>
       `;
       contenedor.appendChild(div);
     });
 
-    // Agregar event listeners a los botones
     document.querySelectorAll(".btn-add-cart").forEach((btn) => {
       btn.addEventListener("click", agregarAlCarrito);
     });
@@ -109,15 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!arma) return;
 
-    // Verificar stock
     if (arma.stock <= 0) {
       alert("No hay suficiente stock disponible");
       return;
     }
 
     let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    // Verificar si el artículo ya está en el carrito
     const itemExistente = carrito.find((item) => item.id === armaId);
 
     if (itemExistente) {

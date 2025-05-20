@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Verificar si el usuario es admin
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
+  const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
   if (!currentUser || currentUser.userType !== "admin") {
     alert("Acceso restringido a administradores");
     window.location.href = "catalogo.html";
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       imagen: imagen || "https://via.placeholder.com/300x200",
     };
 
-    // Obtener armas existentes o inicializar array
+    // Obtener armas existentes
     let armas = JSON.parse(localStorage.getItem("armas")) || [];
 
     // Agregar nueva arma
@@ -64,20 +63,45 @@ document.addEventListener("DOMContentLoaded", function () {
     // Guardar en localStorage
     localStorage.setItem("armas", JSON.stringify(armas));
 
-    // Mostrar confirmación
-    alert(`¡Arma "${nombre}" agregada correctamente al catálogo!`);
-
-    // Redirigir al catálogo
-    window.location.href = "catalogo.html";
+    // Guardar en IndexedDB
+    saveWeaponToIndexedDB(nuevaArma)
+      .then(() => {
+        alert(`¡Arma "${nombre}" agregada correctamente al catálogo!`);
+        window.location.href = "catalogo.html";
+      })
+      .catch(error => {
+        console.error("Error al guardar en IndexedDB:", error);
+        alert("Ocurrió un error al guardar el arma.");
+      });
   });
 
-  // Validación de imagen URL (opcional)
+  // Función para guardar en IndexedDB
+  function saveWeaponToIndexedDB(weaponData) {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open("ArmasDB", 1);
+
+      request.onsuccess = (e) => {
+        const db = e.target.result;
+        const tx = db.transaction("weapons", "readwrite");
+        const store = tx.objectStore("weapons");
+
+        const req = store.add(weaponData);
+        
+        req.onsuccess = () => resolve();
+        req.onerror = (err) => reject(err);
+      };
+
+      request.onerror = (e) => {
+        reject(e.target.error);
+      };
+    });
+  }
+
+  // Validación de imagen URL
   document.getElementById("imagen").addEventListener("change", function () {
     const url = this.value.trim();
     if (url && !url.match(/\.(jpeg|jpg|png|gif)$/i)) {
-      alert(
-        "Por favor ingrese una URL de imagen válida (JPEG, JPG, PNG o GIF)."
-      );
+      alert("Por favor ingrese una URL de imagen válida (JPEG, JPG, PNG o GIF).");
       this.value = "";
     }
   });

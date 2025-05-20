@@ -1,23 +1,24 @@
 // Verificar si el usuario está autenticado
 function isAuthenticated() {
-  return !!localStorage.getItem("currentUser");
+  return !!sessionStorage.getItem("currentUser");
 }
 
 // Verificar si el usuario es administrador
 function isAdmin() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
-  return user && user.role === "admin";
+  const user = JSON.parse(sessionStorage.getItem("currentUser"));
+  return user && user.userType === "admin";
 }
 
 // Proteger rutas de admin
 function protectAdminRoute() {
   if (!isAuthenticated()) {
-    window.location.href = "../login.html";
+    sessionStorage.setItem("redirectAfterLogin", window.location.href);
+    window.location.href = "login.html";
     return false;
   }
 
   if (!isAdmin()) {
-    window.location.href = "../index.html";
+    window.location.href = "index.html";
     return false;
   }
 
@@ -27,16 +28,17 @@ function protectAdminRoute() {
 // Proteger rutas de cliente
 function protectClientRoute() {
   if (!isAuthenticated()) {
+    sessionStorage.setItem("redirectAfterLogin", window.location.href);
     window.location.href = "login.html";
     return false;
   }
-
   return true;
 }
 
 // Cerrar sesión
 function logout() {
-  localStorage.removeItem("currentUser");
+  sessionStorage.removeItem("currentUser");
+  localStorage.removeItem("carrito");
   window.location.href = "index.html";
 }
 
@@ -45,5 +47,5 @@ export {
   isAdmin,
   protectAdminRoute,
   protectClientRoute,
-  logout,
+  logout
 };
